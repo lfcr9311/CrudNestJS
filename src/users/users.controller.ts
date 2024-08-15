@@ -17,12 +17,7 @@ export class UsersController {
     @Get(':id')
     @HttpCode(200)
     async findOne(@Param('id') id:UUID){
-        const user = await this.service.findId(id)
-            console.log(user)
-            if (!user) {
-                throw new HttpException('User not found', HttpStatus.BAD_REQUEST)
-            }
-            return user;
+        return this.service.findId(id)
     }
 
     @Get('email/:email')
@@ -40,9 +35,6 @@ export class UsersController {
     @Post()
     @HttpCode(201)
     create(@Body() createUserDto: CreateUserDto) {
-        if (!createUserDto) {
-            throw new HttpException('Invalid data', HttpStatus.BAD_REQUEST)
-        }
         return this.service.create(createUserDto)
     }
 
@@ -63,7 +55,7 @@ export class UsersController {
     @Delete(':id')
     @HttpCode(200)
     delete(@Param('id') id:UUID){
-       return this.service.delete(id)
+        return this.service.delete(id)
     }
 
 }
